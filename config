@@ -1,0 +1,9 @@
+{
+    "ftp": {
+        "server": "asafonov.org",
+        "login": "login",
+        "password": "password",
+        "upload_dir": "/www/screenshot.asafonov.org/",
+        "url_prefix": "http://screenshot.asafonov.org/"
+    }
+}
