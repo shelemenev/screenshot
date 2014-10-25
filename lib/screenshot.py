@@ -6,8 +6,8 @@ def config_default():
     f.close()
     return lambda x: config[x]
 
-def get_filename_from_time(timestamp):
-    return lambda: 'screenshot-' + str(timestamp) + '.png'
+def get_filename():
+    return 'screenshot-' + str(time.time()) + '.png'
 
 def screen_gtk(filename):
     import gtk.gdk
@@ -15,23 +15,22 @@ def screen_gtk(filename):
     sz = w.get_size()
     pb = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB,False,8,sz[0],sz[1])
     pb = pb.get_from_drawable(w,w.get_colormap(),0,0,0,0,sz[0],sz[1])
-    if (pb != None):
-        pb.save(filename,"png")
+    return (filename if pb!=None and (pb.save(filename, 'png') or True) else None)
 
-def screen_image_magic(filename):
-    os.system("import -window root "+filename)
+def screen_imagemagic(filename):
+    return (None if os.system("import -window root "+filename)>0 else filename)
 
 def upload_ftp(filename, config):
-    ftp = ftplib.FTP(config('server'))
-    ftp.login(config('login'), config('password'))
-    ftp.cwd(config('upload_dir'))
-    myfile = open(filename, 'rb')
-    ftp.storbinary('STOR ' + filename, myfile)
-    myfile.close()
-    os.remove(filename)
-    return config('url_prefix') + filename
+    def perform_upload_ftp(filename, config):
+        ftp = ftplib.FTP(config('server'))
+        ftp.login(config('login'), config('password'))
+        ftp.cwd(config('upload_dir'))
+        myfile = open(filename, 'rb')
+        ftp.storbinary('STOR ' + filename, myfile)
+        myfile.close()
+        os.remove(filename)
+        return config('url_prefix') + filename
+    return (perform_upload_ftp(filename, config) if filename!=None else None)
 
 def screenshot(screen, upload):
-    get_filename = get_filename_from_time(time.time())
-    screen(get_filename())
-    return upload(get_filename(), config_default())
+    return upload(screen(get_filename()), config_default())
