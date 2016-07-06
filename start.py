@@ -1,3 +1,3 @@
 from lib.screenshot import *
 
-print(screenshot(screen_gtk, upload_ftp))
+print(screenshot(screen_imagemagic, upload_ftp))
