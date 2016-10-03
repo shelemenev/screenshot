@@ -3,5 +3,6 @@
     "login": "login",
     "password": "password",
     "upload_dir": "/www/screenshot.asafonov.org/",
-    "url_prefix": "http://screenshot.asafonov.org/"
+    "url_prefix": "http://screenshot.asafonov.org/",
+    "browser": "google-chrome-stable"
 }

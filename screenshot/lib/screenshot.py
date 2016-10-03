@@ -1,7 +1,7 @@
 import os, ftplib, json, time
 
 def config_default():
-    f = open('config')
+    f = open(os.path.expanduser('~') + '/.config/screenshot')
     config = json.loads(f.read())
     f.close()
     return lambda x: config[x]
