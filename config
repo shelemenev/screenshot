@@ -1,4 +1,5 @@
 {
+    "upload": true,
     "server": "asafonov.org",
     "login": "login",
     "password": "password",

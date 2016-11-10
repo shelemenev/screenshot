@@ -31,5 +31,8 @@ def upload_ftp(filename, config):
         return config('url_prefix') + filename
     return (perform_upload_ftp(filename, config) if filename!=None else None)
 
+def no_upload(filename, config):
+    return filename
+
 def screenshot(screen, upload):
     return upload(screen(get_filename()), config_default())
