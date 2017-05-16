@@ -18,14 +18,14 @@ def screen_gtk(filename):
     return (filename if pb!=None and (pb.save('/tmp/screenshot.png', 'png') or True) else None)
 
 def screen_imagemagic(filename):
-    return (None if os.system("import -window root /tmp/screenshot.png")>0 else filename)
+    return (None if os.system("import -window root /home/shaga/Изображения/screenshot.png")>0 else filename)
 
 def upload_ftp(filename, config):
     def perform_upload_ftp(filename, config):
         ftp = ftplib.FTP(config('server'))
         ftp.login(config('login'), config('password'))
         ftp.cwd(config('upload_dir'))
-        myfile = open('/tmp/screenshot.png', 'rb')
+        myfile = open('/home/shaga/Изображения/screenshot.png', 'rb')
         ftp.storbinary('STOR ' + filename, myfile)
         myfile.close()
         return config('url_prefix') + filename
